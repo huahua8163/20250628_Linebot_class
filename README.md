@@ -1,0 +1,2 @@
+# 20250628_Linebot_class
+20250628致理Linebot
