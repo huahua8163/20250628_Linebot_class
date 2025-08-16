@@ -1,4 +1,7 @@
 import gradio as gr
+from google import genai
+
+client = genai.Client()
 
 # 建立gradio Blocks架構
 with gr.Blocks() as demo:
@@ -12,7 +15,14 @@ with gr.Blocks() as demo:
             examples=[
                 ["2025國定假日?"],
                 ["這個AI機器人可以做什麼?"],
-                ["如何聯繫人資部?"]
+                ["如何聯繫人資部?"],
+                ["公司內部規定有哪些?"],
+                ["如何申請休假?"],
+                ["如何查詢薪資?"],
+                ["如何更新個人資料?"],
+                ["公司福利有哪些?"],
+                ["如何參加培訓課程?"],
+                ["如何提交報銷?"]
             ],
             inputs=input_text
         )
@@ -27,6 +37,10 @@ with gr.Blocks() as demo:
     @input_text.submit(inputs=[input_text], outputs=[output_text])
     def respond(message):
         # 在這裡處理用戶訊息
-        return "這是機器人的回覆"
+        response = client.models.generate_content(
+           model="gemini-2.5-flash",
+           contents=[message]
+        )
+        return response.text
 
     demo.launch()

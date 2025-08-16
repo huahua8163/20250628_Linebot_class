@@ -10,6 +10,6 @@ with gr.Blocks() as demo:
 
     @input_textbox.change(inputs=[input_textbox], outputs=[output_textbox])
     def update_output(text):
-        return text
+        return text + "您好!"
 
 demo.launch()
